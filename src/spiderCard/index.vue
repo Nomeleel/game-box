@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="card-container">
     <div class="card-row" :style="'width:' + contentWidth + 'px'">
       <div class="card-col" :style="'width:' + cardWidth + 'px'" v-for="(cardList, rowIndex) in contentCards" :key="rowIndex">
         <div
@@ -8,74 +8,12 @@
           :style="'top: -' + colIndex * cardHalfHeight + 'px;width:' + cardWidth + 'px;height:' + cardHeight + 'px'"
           v-for="(card, colIndex) in cardList"
           :key="colIndex"
-          @touchstart="start($event, rowIndex, colIndex)"
-          @touchmove="move($event, card)"
-          @touchend="end($event, card)">
-          <template v-if="card.showCard && card.type === 'red_card'">
-            <img v-if="card.name == 'A'" class="card" src="@/assets/cards/red_cards/A.png" />
-            <img v-else-if="card.name == '2'" class="card" src="@/assets/cards/red_cards/2.png" />
-            <img v-else-if="card.name == '3'" class="card" src="@/assets/cards/red_cards/3.png" />
-            <img v-else-if="card.name == '4'" class="card" src="@/assets/cards/red_cards/4.png" />
-            <img v-else-if="card.name == '5'" class="card" src="@/assets/cards/red_cards/5.png" />
-            <img v-else-if="card.name == '6'" class="card" src="@/assets/cards/red_cards/6.png" />
-            <img v-else-if="card.name == '7'" class="card" src="@/assets/cards/red_cards/7.png" />
-            <img v-else-if="card.name == '8'" class="card" src="@/assets/cards/red_cards/8.png" />
-            <img v-else-if="card.name == '9'" class="card" src="@/assets/cards/red_cards/9.png" />
-            <img v-else-if="card.name == '10'" class="card" src="@/assets/cards/red_cards/10.png" />
-            <img v-else-if="card.name == 'J'" class="card" src="@/assets/cards/red_cards/J.png" />
-            <img v-else-if="card.name == 'Q'" class="card" src="@/assets/cards/red_cards/Q.png" />
-            <img v-else-if="card.name == 'K'" class="card" src="@/assets/cards/red_cards/K.png" />
-          </template>
-          <template v-else-if="card.showCard && card.type === 'black_card'">
-            <img v-if="card.name == 'A'" class="card" src="@/assets/cards/black_cards/A.png" />
-            <img v-else-if="card.name == '2'" class="card" src="@/assets/cards/black_cards/2.png" />
-            <img v-else-if="card.name == '3'" class="card" src="@/assets/cards/black_cards/3.png" />
-            <img v-else-if="card.name == '4'" class="card" src="@/assets/cards/black_cards/4.png" />
-            <img v-else-if="card.name == '5'" class="card" src="@/assets/cards/black_cards/5.png" />
-            <img v-else-if="card.name == '6'" class="card" src="@/assets/cards/black_cards/6.png" />
-            <img v-else-if="card.name == '7'" class="card" src="@/assets/cards/black_cards/7.png" />
-            <img v-else-if="card.name == '8'" class="card" src="@/assets/cards/black_cards/8.png" />
-            <img v-else-if="card.name == '9'" class="card" src="@/assets/cards/black_cards/9.png" />
-            <img v-else-if="card.name == '10'" class="card" src="@/assets/cards/black_cards/10.png" />
-            <img v-else-if="card.name == 'J'" class="card" src="@/assets/cards/black_cards/J.png" />
-            <img v-else-if="card.name == 'Q'" class="card" src="@/assets/cards/black_cards/Q.png" />
-            <img v-else-if="card.name == 'K'" class="card" src="@/assets/cards/black_cards/K.png" />
-          </template>
-          <template v-else-if="card.showCard && card.type === 'diamond_card'">
-            <img v-if="card.name == 'A'" class="card" src="@/assets/cards/diamond_cards/A.png" />
-            <img v-else-if="card.name == '2'" class="card" src="@/assets/cards/diamond_cards/2.png" />
-            <img v-else-if="card.name == '3'" class="card" src="@/assets/cards/diamond_cards/3.png" />
-            <img v-else-if="card.name == '4'" class="card" src="@/assets/cards/diamond_cards/4.png" />
-            <img v-else-if="card.name == '5'" class="card" src="@/assets/cards/diamond_cards/5.png" />
-            <img v-else-if="card.name == '6'" class="card" src="@/assets/cards/diamond_cards/6.png" />
-            <img v-else-if="card.name == '7'" class="card" src="@/assets/cards/diamond_cards/7.png" />
-            <img v-else-if="card.name == '8'" class="card" src="@/assets/cards/diamond_cards/8.png" />
-            <img v-else-if="card.name == '9'" class="card" src="@/assets/cards/diamond_cards/9.png" />
-            <img v-else-if="card.name == '10'" class="card" src="@/assets/cards/diamond_cards/10.png" />
-            <img v-else-if="card.name == 'J'" class="card" src="@/assets/cards/diamond_cards/J.png" />
-            <img v-else-if="card.name == 'Q'" class="card" src="@/assets/cards/diamond_cards/Q.png" />
-            <img v-else-if="card.name == 'K'" class="card" src="@/assets/cards/diamond_cards/K.png" />
-          </template>
-          <template v-else-if="card.showCard && card.type === 'club_card'">
-            <img v-if="card.name == 'A'" class="card" src="@/assets/cards/club_cards/A.png" />
-            <img v-else-if="card.name == '2'" class="card" src="@/assets/cards/club_cards/2.png" />
-            <img v-else-if="card.name == '3'" class="card" src="@/assets/cards/club_cards/3.png" />
-            <img v-else-if="card.name == '4'" class="card" src="@/assets/cards/club_cards/4.png" />
-            <img v-else-if="card.name == '5'" class="card" src="@/assets/cards/club_cards/5.png" />
-            <img v-else-if="card.name == '6'" class="card" src="@/assets/cards/club_cards/6.png" />
-            <img v-else-if="card.name == '7'" class="card" src="@/assets/cards/club_cards/7.png" />
-            <img v-else-if="card.name == '8'" class="card" src="@/assets/cards/club_cards/8.png" />
-            <img v-else-if="card.name == '9'" class="card" src="@/assets/cards/club_cards/9.png" />
-            <img v-else-if="card.name == '10'" class="card" src="@/assets/cards/club_cards/10.png" />
-            <img v-else-if="card.name == 'J'" class="card" src="@/assets/cards/club_cards/J.png" />
-            <img v-else-if="card.name == 'Q'" class="card" src="@/assets/cards/club_cards/Q.png" />
-            <img v-else-if="card.name == 'K'" class="card" src="@/assets/cards/club_cards/K.png" />
-          </template>
-          <template v-else>
-            <transition name="fade" leave-active-class="flop-anim">
-              <img class="card" src="@/assets/cards/back_blue.png" />
-            </transition>
-          </template>
+          @touchstart.stop="start($event, rowIndex, colIndex)"
+          @touchmove.stop="move($event, card)"
+          @touchend.stop="end($event, card)"
+          @mousedown.stop="mouseStart($event, rowIndex, colIndex, card)"
+          @mouseup.stop="mouseEnd($event, card)">
+          <card :card="card"></card>
         </div>
       </div>
     </div>
@@ -89,18 +27,36 @@
       </div>
     </div>
 
+    <div class="option-btns">
+      <div class="step">操作：{{stepMaps.length ? stepMaps.length - 1 : 0}} </div>
+      <div class="flex">
+        <div class="back-step-btn" @click="showLevelPopup = true">关卡</div>
+        <div class="back-step-btn" @click="backPrevStep">撤销</div>
+      </div>
+    </div>
+
+    <div class="A-K-anim-panel" v-show="successAnimCards.length > 0">
+      <div class="A-K-anim-wrap">
+        <div v-for="(card, index) in successAnimCards" :key="index" class="card-item A-K-anim-card-item"
+          :style="'width:' + cardWidth + 'px;height:' + cardHeight + 'px'"
+          :ref="'anim' + index">
+          <card :card="card"></card>
+        </div>
+      </div>
+    </div>
+
     <div v-if="success" class="success-panel">
       <div class="success-title">恭喜！全部完成了</div>
       <div class="restart" @click="openSelectLevelPanel">再来一局</div>
       <div class="restart back" @click="back">更多游戏</div>
     </div>
 
-    <div v-if="showLevelPopup" class="success-panel">
+    <div v-if="showLevelPopup" class="success-panel" @click="showLevelPopup = false">
       <div class="success-title">请选择关卡</div>
-      <div class="restart" @click="selectLevel(0)">初级</div>
-      <div class="restart" @click="selectLevel(1)">中级</div>
-      <div class="restart" @click="selectLevel(2)">高级</div>
-      <div class="restart" @click="selectLevel(3)">大师</div>
+      <div class="restart" @click.stop="selectLevel(0)">初级</div>
+      <div class="restart" @click.stop="selectLevel(1)">中级</div>
+      <div class="restart" @click.stop="selectLevel(2)">高级</div>
+      <div class="restart" @click.stop="selectLevel(3)">大师</div>
     </div>
   </div>
 </template>
@@ -139,7 +95,9 @@ export default {
         'A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'
       ],
       readyCards: [[], [], [], [], []], // 发牌区
-      contentCards: [[], [], [], [], [], [], [], [], [], []] // 保存面板上的牌的数据
+      contentCards: [[], [], [], [], [], [], [], [], [], []], // 保存面板上的牌的数据
+      stepMaps: [],
+      successAnimCards: []
     }
   },
   created () {
@@ -166,6 +124,7 @@ export default {
       this.success = false
     },
     restart () {
+      this.stepMaps = []
       this.readyCards = [[], [], [], [], []]
       this.contentCards = [[], [], [], [], [], [], [], [], [], []]
       this.success = false
@@ -236,6 +195,9 @@ export default {
         }
       }
       console.log(this.contentCards, this.readyCards)
+      // init完成后，记录当前状态
+      this.saveStep()
+      // this.handleSuccessAnim(0, 1)
     },
     getAllNeedMoveCards () {
       const maxIndex = this.contentCards[this.rowIndex].length - 1
@@ -291,6 +253,41 @@ export default {
         this.pushCard(index, card)
       }
     },
+    mouseStart (e, rowIndex, colIndex, card) {
+      console.log('Start', e)
+      this.rowIndex = rowIndex
+      this.colIndex = colIndex
+      this.getAllNeedMoveCards()
+      this.mouseMoveCard = card
+      document.addEventListener('mousemove', this.mouseMove)
+    },
+    mouseMove (e) {
+      console.log('move')
+      e.preventDefault()
+      if (this.mouseMoveCard.showCard) {
+        const cardsCount = this.moveCards.length
+        if (!cardsCount) {
+          return
+        }
+        for (let i in this.moveCards) {
+          let cardPosition = cardsCount > 1 ? ((cardsCount - 1) * this.cardHalfHeight - this.cardHalfHeight) : -this.cardHalfHeight
+          const moveCard = this.moveCards[i]
+          moveCard.card.style.position = 'fixed'
+          moveCard.card.style.top = (e.pageY + cardPosition) - (i * this.cardHalfHeight) + 'px'
+          moveCard.card.style.left = e.pageX - 15 + 'px'
+          moveCard.card.style.zIndex = 100
+        }
+      }
+    },
+    mouseEnd (e, card) {
+      console.log('end', e, card, this.mouseMoveCard)
+      document.removeEventListener('mousemove', this.mouseMove)
+      let index = Math.floor((e.pageX - this.padding) / (this.contentWidth / 10))
+      console.log(index)
+      if (this.mouseMoveCard.showCard && this.moveCards.length > 0) {
+        this.pushCard(index, this.mouseMoveCard)
+      }
+    },
     pushCard (index, card) {
       console.log(this.rowIndex, index, index !== this.rowIndex)
       if (index >= 0 && index <= 9 && index !== this.rowIndex) {
@@ -342,12 +339,41 @@ export default {
         moveCard.card.style.zIndex = 'unset'
       }
     },
+    // 保存步骤
+    saveStep () {
+      this.stepMaps.push({
+        readyCards: JSON.parse(JSON.stringify(this.readyCards)),
+        contentCards: JSON.parse(JSON.stringify(this.contentCards))
+      })
+      console.log(this.stepMaps)
+    },
+    // 撤销上一步
+    backPrevStep () {
+      console.log('backPrevStep', this.stepMaps)
+      if (this.stepMaps.length <= 1) {
+        return
+      }
+      // 先删掉当前步数的状态
+      this.stepMaps.pop()
+      // 取出上一步的状态
+      const step = this.stepMaps[this.stepMaps.length - 1]
+      if (!step) {
+        return
+      }
+
+      // 恢复
+      this.$set(this, 'readyCards', JSON.parse(JSON.stringify(step.readyCards)))
+      this.$set(this, 'contentCards', JSON.parse(JSON.stringify(step.contentCards)))
+    },
     // 检查是否满足成功要求，A-K
-    checkSuccess (index) {
+    checkSuccess (index, isSaveStep = true) {
       const cards = this.contentCards[index]
       const cardsMaxIndex = cards.length - 1
       // 首先判断最后一张是否是A
       if (cards[cardsMaxIndex].name !== 'A') {
+        if (isSaveStep) {
+          this.saveStep()
+        }
         return
       }
       // 从下向上开始逐个检查
@@ -355,51 +381,68 @@ export default {
         const card = cards[i]
         // 如果不展示卡片，则return
         if (!card.showCard) {
+          if (isSaveStep) {
+            this.saveStep()
+          }
           return
         }
         if (i !== 0) {
           const prevCard = cards[i - 1]
           // 如果顺序不对或不是同一个花色，则return
           if (card.name !== 'K' && (cardNameMaps[card.name] + 1 !== cardNameMaps[prevCard.name] || card.type !== prevCard.type)) {
+            if (isSaveStep) {
+              this.saveStep()
+            }
             return
           }
         }
         if (card.name === 'K') {
-          this.successA_K(index, i)
+          this.successA_K(index, i, isSaveStep)
           return
         }
       }
     },
+    handleSuccessAnim (rowIndex, colIndex) {
+      // 获取卡片列表
+      const cards = this.contentCards[rowIndex]
+      const animCards = JSON.parse(JSON.stringify(cards))
+      const successCards = animCards.splice(colIndex, animCards.length - colIndex)
+      this.successAnimCards = successCards
+      setTimeout(() => {
+        this.startSuccessAnim(0)
+      }, 200)
+    },
     // 开始播放成功收集A-K的动画
-    startSuccessAnim (rowIndex, colIndex, count) {
-      if (count > 12) {
-        this.handleDestoryCards(rowIndex, colIndex)
+    startSuccessAnim (index) {
+      if (index > 12) {
+        this.successAnimCards = []
         return
       }
-      const refs = this.$refs['' + rowIndex + (colIndex + count)]
+      const refs = this.$refs['anim' + index]
       if (_.isEmpty(refs)) {
         return
       }
       const successCardRefs = refs[0]
+      successCardRefs.style.transition = 'all 0.2s'
+      successCardRefs.style.transform = 'scale(1.2)'
+      successCardRefs.style.top = '20%'
+      successCardRefs.style.left = 0
+      successCardRefs.style.right = 0
+      successCardRefs.style.margin = 'auto'
       setTimeout(() => {
-        successCardRefs.style.transition = 'all 0.5s'
-        successCardRefs.style.transform = 'scale(1.2)'
-        successCardRefs.style.top = 0
-        successCardRefs.style.left = 0
         successCardRefs.style.position = 'fixed'
         successCardRefs.style.top = '100vh'
-        successCardRefs.style.left = '90vw'
         setTimeout(() => {
-          this.startSuccessAnim(rowIndex, colIndex, count + 1)
-        }, 150)
-      }, 0)
+          this.startSuccessAnim(index + 1)
+        }, 100)
+      }, 50)
     },
-    successA_K (rowIndex, colIndex) {
+    successA_K (rowIndex, colIndex, isSaveStep) {
       // TODO 销毁卡片动画不完善
-      this.startSuccessAnim(rowIndex, colIndex, 0)
-      // this.handleDestoryCards(rowIndex, colIndex)
+      this.handleSuccessAnim(rowIndex, colIndex)
+      this.handleDestoryCards(rowIndex, colIndex, isSaveStep)
     },
-    handleDestoryCards (rowIndex, colIndex) {
+    handleDestoryCards (rowIndex, colIndex, isSaveStep) {
       // 获取卡片列表
       const cards = this.contentCards[rowIndex]
       // 从列表中删除正在移动的卡片以及该卡片后的所有卡片
@@ -412,6 +455,9 @@ export default {
       // 更新卡片
       this.$set(this.contentCards, rowIndex, cards)
       console.log(successCards)
+      if (isSaveStep) {
+        this.saveStep()
+      }
       this.checkAllSuccess()
     },
     // 检查是否全部完成
@@ -462,7 +508,7 @@ export default {
       }
       // 发完牌后开始检查是否成功集齐
       for (let i = 0; i < this.contentCards.length; i++) {
-        this.checkSuccess(i)
+        this.checkSuccess(i, i === this.contentCards.length - 1)
       }
     },
     back () {
@@ -480,26 +526,32 @@ export default {
   -ms-user-select: none;
   user-select: none;
 }
+.card-container {
+  background-color: rgba(169, 179, 189, 60%);
+  min-height: 100vh;
+}
 .card-row {
   width: 360px;
   margin: auto;
   position: relative;
   display: flex;
   justify-content: space-around;
+  /* background-color: #f6f6f6; */
 }
 .card-col {
   position: relative;
   width: 35px;
-  min-height: 60px;
-  background-color: #eee;
+  min-height: 80vh;
+  background-color: #fff;
+}
+.card-col:nth-child(2n) {
+  background-color: #f2f2f2;
 }
 .card-item {
   position: relative;
   width: 34px;
   height: 60px;
   font-weight: 600;
-  border: 1px solid #f1cdcd;
-  border-radius: 5px;
   background-color: #fff;
   box-sizing: border-box;
   color: #14195a;
@@ -566,17 +618,69 @@ export default {
   transition: all 0.5s;
 }
 .flop-anim {
-  animation: card-anim 0.5s;
+  animation: card-anim 0.6s;
 }
 @keyframes card-anim {
   0% {
     transform: rotateY(0) translateY(-100%) scale(1);
   }
-  0% {
-    transform: rotateY(90deg) translateY(-100%) scale(1.5);
-  }
   100% {
-    transform: rotateY(180deg) translateY(-100%);
+    transform: rotateY(90deg) translateY(-100%) scale(1.2);
+    opacity: 0;
   }
+}
+
+.option-btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: fixed;
+  right: 15px;
+  bottom: 30px;
+}
+.option-btns .step {
+  color: #333;
+  font-size: 16px;
+  font-weight: 500;
+}
+.option-btns .back-step-btn {
+  margin-left: 6px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: #891e91;
+  width: 50px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+}
+.flex {
+  display: flex;
+}
+
+.A-K-anim-panel {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, .5);
+}
+.A-K-anim-wrap {
+  position: absolute;
+  left: 20%;
+  right: 20%;
+  top: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.A-K-anim-card-item {
+  background-color: transparent !important;
 }
 </style>
